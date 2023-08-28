@@ -6,7 +6,7 @@ I wanted to learn more about the what, how, and why of dynamic memory allocation
 
 ## How to use
 Link alloc.c with alloc.h and include the header whenever you want to use it. Sample makefile is provided.
-The standard function have different names
+The standard functions have different names
 - malloc is m_alloc
 - free is m_free
 - calloc is c_alloc
