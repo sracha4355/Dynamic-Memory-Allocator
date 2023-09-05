@@ -26,6 +26,8 @@ void * c_alloc(size_t, size_t);
 
 
 struct meta_block * create_meta_block(size_t size);
+int checkIfMetaBlockInList(struct meta_block * mb);
+
 
 void * requestSpace();
 struct meta_block * findSuitableFreeBlock(struct meta_block ** head, size_t size);

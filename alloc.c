@@ -60,6 +60,11 @@ int validPartition(size_t fullsize, size_t bytes_to_take){
 }
 
 void * re_alloc(void * ptr, size_t size){
+	// TODO: need to add check to see if ptr is a valid pointer to be reallocated
+	if (checkIfMetaBlockInList(ptr - META_SIZE) == -1){
+		puts("invalid pointer for re_alloc");
+		return NULL;
+	}
 	// get the meta_block for this pointer
 	struct meta_block * block = getMBForDM(ptr);
 	int current_size = block -> size;
@@ -195,6 +200,12 @@ struct meta_block * findSuitableFreeBlock(struct meta_block ** ptr_to_head, size
 
 
 void m_free (void * ptr) {
+
+	if (checkIfMetaBlockInList(ptr - META_SIZE) == -1){
+		puts("invalid pointer for free");
+		return;
+	}
+
 	if(ptr == NULL){
 		return;
 	}
@@ -286,6 +297,17 @@ void printIntDataAssociatedWithBlock(struct meta_block * block){
 // get the associated meta_block with a pointer 
 struct meta_block * getMetaBlock(void * ptr){
 	return (struct meta_block *) ptr - 1;	
+}
+
+int checkIfMetaBlockInList(struct meta_block * mb){
+	struct meta_block * current = meta_block_head;
+	while (current != NULL) {
+		if (mb == current){
+			return 1;
+		}
+		current = current -> next;
+	}
+	return -1;
 }
 
 
